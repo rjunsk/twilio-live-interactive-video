@@ -14,6 +14,7 @@ import usePlayerContext from '../../hooks/usePlayerContext/usePlayerContext';
 import useSyncContext from '../../hooks/useSyncContext/useSyncContext';
 import { useEnqueueSnackbar } from '../../hooks/useSnackbar/useSnackbar';
 import { Room as IRoom, TwilioError } from 'twilio-video';
+import { CaptionRenderer } from '../CaptionsRenderer/CaptionsRenderer';
 
 const useStyles = makeStyles((theme: Theme) => {
   const totalMobileSidebarHeight = `${theme.sidebarMobileHeight +
@@ -117,6 +118,7 @@ export default function Room() {
       <ChatWindow />
       <ParticipantWindow />
       <BackgroundSelectionDialog />
+      <CaptionRenderer />
     </div>
   );
 }

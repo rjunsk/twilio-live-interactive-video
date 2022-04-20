@@ -17,6 +17,11 @@ module.exports.handler = async (context, event, callback) => {
     BACKEND_STORAGE_SYNC_SERVICE_SID,
     SYNC_SERVICE_NAME_PREFIX,
     DOMAIN_NAME,
+    AWS_ACCESS_KEY,
+    AWS_ACCESS_SECRET,
+    AWS_SESSION_TOKEN_1,
+    AWS_SESSION_TOKEN_2,
+    AWS_SESSION_TOKEN_3
   } = context;
 
   const authHandler = require(Runtime.getAssets()['/auth.js'].path);
@@ -85,12 +90,18 @@ module.exports.handler = async (context, event, callback) => {
     mediaProcessor = await axiosClient('MediaProcessors', {
       method: 'post',
       data: querystring.stringify({
-        MaxDuration: 60 * 30, // Set maxDuration to 30 minutes
+        MaxDuration: 60 * 60, // Set maxDuration to 60 minutes
         Extension: context.MEDIA_EXTENSION,
         ExtensionContext: JSON.stringify({
           room: { name: room.sid },
+          identity: "media-transcriber-arjun",
           outputs: [playerStreamer.data.sid],
           resolution: '1920x1080',
+        }),
+        ExtensionEnvironment: JSON.stringify({
+          AWS_ACCESS_KEY,
+          AWS_ACCESS_SECRET,
+          AWS_SESSION_TOKEN: AWS_SESSION_TOKEN_1 + AWS_SESSION_TOKEN_2 + AWS_SESSION_TOKEN_3,
         }),
       }),
     });

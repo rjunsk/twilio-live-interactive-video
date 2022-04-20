@@ -1,7 +1,7 @@
 const syncServicePrefix = 'Live Video '
 
 module.exports = {
-  MEDIA_EXTENSION: 'video-composer-v1',
+  MEDIA_EXTENSION: 'https://media-transcriber-arj-test-3306-test.twil.io/index.html',
   SERVICE_NAME: 'twilio-live-interactive-video',
   API_KEY_NAME: 'Twilio Live Interactive Video API Key',
   TWILIO_CONVERSATIONS_SERVICE_NAME: 'Twilio Live Interactive Video Conversations Service',

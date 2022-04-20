@@ -78,7 +78,7 @@ export default function ParticipantList() {
                 participant={participant}
                 isSelected={participant === selectedParticipant}
                 onClick={() => setSelectedParticipant(participant)}
-                hideParticipant={hideParticipant}
+                hideParticipant={hideParticipant || participant.identity.includes('ngrok')}
                 isHost={participant.identity === host}
               />
             );

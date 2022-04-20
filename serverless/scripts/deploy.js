@@ -115,6 +115,11 @@ async function deployFunctions() {
       MEDIA_EXTENSION: constants.MEDIA_EXTENSION,
       APP_EXPIRY: Date.now() + 1000 * 60 * 60 * 24 * 7, // One week
       PASSCODE: getRandomInt(6),
+      AWS_ACCESS_KEY: process.env.AWS_ACCESS_KEY,
+      AWS_ACCESS_SECRET: process.env.AWS_ACCESS_SECRET,
+      AWS_SESSION_TOKEN_1: process.env.AWS_SESSION_TOKEN_1,
+      AWS_SESSION_TOKEN_2: process.env.AWS_SESSION_TOKEN_2,
+      AWS_SESSION_TOKEN_3: process.env.AWS_SESSION_TOKEN_3,
     },
     pkgJson: {
       dependencies: {

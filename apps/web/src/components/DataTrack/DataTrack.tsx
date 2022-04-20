@@ -3,11 +3,13 @@ import { DataTrack as IDataTrack } from 'twilio-video';
 import { useEnqueueSnackbar } from '../../hooks/useSnackbar/useSnackbar';
 import useLocalAudioToggle from '../../hooks/useLocalAudioToggle/useLocalAudioToggle';
 import useVideoContext from '../../hooks/useVideoContext/useVideoContext';
+import useCaptionContext from '../../hooks/useCaptionsContext/useCaptionsContext';
 
 export default function DataTrack({ track }: { track: IDataTrack }) {
   const { room } = useVideoContext();
   const [isAudioEnabled, toggleAudio] = useLocalAudioToggle();
   const enqueueSnackbar = useEnqueueSnackbar();
+  const { registerResult } = useCaptionContext();
 
   useEffect(() => {
     const handleMessage = (message: string | ArrayBuffer) => {
@@ -33,13 +35,15 @@ export default function DataTrack({ track }: { track: IDataTrack }) {
         } catch (e) {
           console.error('Error parsing data track message: ', e);
         }
+      } else {
+        registerResult(JSON.parse(message));
       }
     };
     track.on('message', handleMessage);
     return () => {
       track.off('message', handleMessage);
     };
-  }, [track, isAudioEnabled, room, toggleAudio, enqueueSnackbar]);
+  }, [track, isAudioEnabled, room, toggleAudio, enqueueSnackbar, registerResult]);
 
   return null; // This component does not return any HTML, so we will return 'null' instead.
 }
